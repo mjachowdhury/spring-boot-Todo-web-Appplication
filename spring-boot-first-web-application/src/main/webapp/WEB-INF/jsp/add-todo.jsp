@@ -7,10 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	 Here are the list of ${name}'s todos:
-	 ${todos}.
-	 <BR/>
-	 <a href="/add-todo">Add a Todo</a>
+	 add todo page ${name}
 	 
 </body>
 </html>

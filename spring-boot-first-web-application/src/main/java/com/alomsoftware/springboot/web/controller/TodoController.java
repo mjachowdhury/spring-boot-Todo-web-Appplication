@@ -21,11 +21,26 @@ public class TodoController {
 	@Autowired
 	TodoService todoService;
  
+	/**
+	 * This method will get the name of the user will put the name in the model
+	 * @param model
+	 * @return will return the user to the list-todo page
+	 */
 	@RequestMapping(value = "/list-todos", method = RequestMethod.GET)	 
 	public String showTodos(ModelMap model){
 		String name = (String) model.get("name");
 		model.put("todos", todoService.retrieveTodos(name)); 
 		return "list-todos";
+	}
+	
+	/**
+	 * This method will work for adding todo stuffs.
+	 * @param model
+	 * @return to the add-todo page
+	 */
+	@RequestMapping(value = "/add-todo", method = RequestMethod.GET)	 
+	public String addTodo(ModelMap model){	 
+		return "add-todo";
 	}
 	
 	
