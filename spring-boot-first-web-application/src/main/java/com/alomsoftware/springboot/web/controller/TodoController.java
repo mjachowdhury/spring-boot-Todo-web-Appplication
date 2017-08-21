@@ -45,6 +45,18 @@ public class TodoController {
 		return "todo";
 	}
 	
+	/**
+	 * This method is mapping for delete to dos and redirect to list-todos
+	 * and added tag requrestParam with id and called deleteTodo method
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/delete-todo", method = RequestMethod.GET)	 
+	public String deleteTodo(@RequestParam int id){	 
+		todoService.deleteTodo(id);
+		return "redirect:/list-todos";
+	}
+	
 	@RequestMapping(value = "/add-todo", method = RequestMethod.POST)	 
 	public String addTodo(ModelMap model, @RequestParam String desc){	
 		todoService.addTodo((String) model.get("name"), desc, new Date(), false);
