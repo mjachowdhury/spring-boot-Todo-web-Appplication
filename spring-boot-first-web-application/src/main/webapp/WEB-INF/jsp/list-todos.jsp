@@ -7,10 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Todo's for ${name}</title>
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+	    		rel="stylesheet">
 </head>
 <body>
-	<h3>Your Todo's</h3>	
-		<table>
+ 		<div class="container">
+		<table class="table table-striped">
 			<caption>Your todos are</caption>
 				<thead>
 					<tr>
@@ -36,8 +38,10 @@
 				</tbody>
 		</table>
 	 
-	 <BR/>
-	 <a href="/add-todo">Add a Todo</a>
 	 
+	 <div><a class="button" href="/add-todo">Add a Todo</a></div>
+	 <script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+	 <script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	</div> 
 </body>
 </html>
