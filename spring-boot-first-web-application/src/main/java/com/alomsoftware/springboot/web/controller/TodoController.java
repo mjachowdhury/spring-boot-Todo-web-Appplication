@@ -49,24 +49,6 @@ public class TodoController {
 	}
 	
 	/**
-	 * This method is mapping for delete to dos and redirect to list-todos
-	 * and added tag requrestParam with id and called deleteTodo method
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value = "/delete-todo", method = RequestMethod.GET)	 
-	public String deleteTodo(@RequestParam int id){	 
-		todoService.deleteTodo(id);
-		return "redirect:/list-todos";
-	}
-	/* 
-	@RequestMapping(value = "/add-todo", method = RequestMethod.POST)	 
-	public String addTodo(ModelMap model, @RequestParam String desc){	
-		todoService.addTodo((String) model.get("name"), desc, new Date(), false);
-		return "redirect:/list-todos";
-	}*/
-	
-	/**
 	 * This method will connect directly with Todo class
 	 * don't have to use tag requestparam string desc 
 	 * added command bean todo
@@ -82,5 +64,47 @@ public class TodoController {
 		todoService.addTodo((String) model.get("name"), todo.getDesc(), new Date(), false);
 		return "redirect:/list-todos";
 	}
+	
+	
+	/**
+	 * This method is mapping for delete todos and redirect to list-todos
+	 * and added tag requrestParam with id and called deleteTodo method
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/delete-todo", method = RequestMethod.GET)	 
+	public String deleteTodo(@RequestParam int id){	 
+		todoService.deleteTodo(id);
+		return "redirect:/list-todos";
+	}
+	
+	
+	@RequestMapping(value = "/update-todo", method = RequestMethod.GET)	 
+	public String showUpdateTodoPage(@RequestParam int id, ModelMap model){	 
+		Todo todo= todoService.retrieveTodos(id);
+		model.addAttribute("todo", todo);
+		return "todo";
+	}
+	
+	@RequestMapping(value = "/update-todo", method = RequestMethod.POST)	 
+	public String updateTodo(ModelMap model, @Valid Todo todo, BindingResult result){			
+		
+		if(result.hasErrors()){
+			return "todo";
+		}
+		
+		todo.setUser((String) model.get("name"));
+		todoService.updateTodo(todo);
+		 
+		return "redirect:/list-todos";
+	}
+	
+	/* 
+	@RequestMapping(value = "/add-todo", method = RequestMethod.POST)	 
+	public String addTodo(ModelMap model, @RequestParam String desc){	
+		todoService.addTodo((String) model.get("name"), desc, new Date(), false);
+		return "redirect:/list-todos";
+	}*/
+	
 	
 }
