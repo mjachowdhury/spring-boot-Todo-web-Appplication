@@ -21,12 +21,13 @@ public class LoginController {
 	@Autowired
 	LoginService loginServcie;
  
-	@RequestMapping(value = "/login", method = RequestMethod.GET)	 
+	@RequestMapping(value = "/", method = RequestMethod.GET)	 
 	public String loginMessage(ModelMap model){
-		//model.put("name", name);
-		return "login";
+		model.put("name", "alomsoftware");
+		return "welcome";
 	}
 	
+	/*
 	@RequestMapping(value = "/login", method = RequestMethod.POST)	 
 	public String welcomeMessage(ModelMap model, @RequestParam String name, @RequestParam String password){
 		
@@ -40,15 +41,16 @@ public class LoginController {
 		model.put("name", name);
 		model.put("password", password);
 		return "welcome";
-	}
+	}*/
 	
 	
 	//With @requestParam  and ModelMap tag i can pass the message through controller
 	//eg-http://localhost:8080/opi?n=opi
-	@RequestMapping("/welcome")
+	//it's an example
+	/*@RequestMapping("/welcome")
 	public String anotherMessage(@RequestParam String n, ModelMap m){
 		m.put("name", n);
 		return "welcome";
-	}
+	}*/
 
 }
