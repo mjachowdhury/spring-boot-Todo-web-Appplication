@@ -1,13 +1,17 @@
 package com.alomsoftware.springboot.web.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +28,20 @@ public class TodoController {
 	//Injected Automatically
 	@Autowired
 	TodoService todoService;
+	
+	/**
+	 * This method will work for date field
+	 * InitBinder tag is need for date 
+	 * WebDataBinder was used to bind for mapping date
+	 * @param binder
+	 */
+	@InitBinder
+	public void initBinder(WebDataBinder binder){
+		//Date -dd/MM/yyyy date format
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+	}
+	
  
 	/**
 	 * This method will get the name of the user will put the name in the model
@@ -44,7 +62,7 @@ public class TodoController {
 	 */
 	@RequestMapping(value = "/add-todo", method = RequestMethod.GET)	 
 	public String showAddTodo(ModelMap model){	
-		model.addAttribute("todo",new Todo(0, (String) model.get("name"), "Add Description" , new Date(), false));
+		model.addAttribute("todo",new Todo(0, (String) model.get("name"), "Add Desc." , new Date(), false));
 		return "todo";
 	}
 	
@@ -61,7 +79,7 @@ public class TodoController {
 		if(result.hasErrors()){
 			return "todo";
 		}
-		todoService.addTodo((String) model.get("name"), todo.getDesc(), new Date(), false);
+		todoService.addTodo((String) model.get("name"), todo.getDesc(), todo.getTargetDate(), false);
 		return "redirect:/list-todos";
 	}
 	
