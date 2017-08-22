@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.alomsoftware.springboot.web.model.Todo;
 import com.alomsoftware.springboot.web.service.LoginService;
 import com.alomsoftware.springboot.web.service.TodoService;
 
@@ -41,7 +42,8 @@ public class TodoController {
 	 * @return to the add-todo page
 	 */
 	@RequestMapping(value = "/add-todo", method = RequestMethod.GET)	 
-	public String showAddTodo(ModelMap model){	 
+	public String showAddTodo(ModelMap model){	
+		model.addAttribute("todo",new Todo(0, (String) model.get("name"), "" , new Date(), false));
 		return "todo";
 	}
 	
@@ -56,12 +58,25 @@ public class TodoController {
 		todoService.deleteTodo(id);
 		return "redirect:/list-todos";
 	}
-	
+	/* 
 	@RequestMapping(value = "/add-todo", method = RequestMethod.POST)	 
 	public String addTodo(ModelMap model, @RequestParam String desc){	
 		todoService.addTodo((String) model.get("name"), desc, new Date(), false);
 		return "redirect:/list-todos";
-	}
+	}*/
 	
+	/**
+	 * This method will connect directly with Todo class
+	 * don't have to use tag requestparam string desc 
+	 * added command bean todo
+	 * @param model
+	 * @param todo
+	 * @return
+	 */
+	@RequestMapping(value = "/add-todo", method = RequestMethod.POST)	 
+	public String addTodo(ModelMap model, Todo todo){	
+		todoService.addTodo((String) model.get("name"), todo.getDesc(), new Date(), false);
+		return "redirect:/list-todos";
+	}
 	
 }
