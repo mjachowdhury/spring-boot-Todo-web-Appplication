@@ -7,6 +7,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -16,12 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
 import com.alomsoftware.springboot.web.model.Todo;
 import com.alomsoftware.springboot.web.service.TodoService;
 
 @Controller 
 //Controller will pick up the class
-@SessionAttributes("name") //with this tag during login time user name will be available through out the controller
+//@SessionAttributes("name") //with this tag during login time user name will be available through out the controller
 //and i have to use this tag where ever i need for user name.
 public class TodoController {
 
@@ -57,7 +60,15 @@ public class TodoController {
 
 
 	private String getLoggedinUserName(ModelMap model) {
-		return (String) model.get("name");
+		Object principal = 
+				SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		
+		if(principal instanceof UserDetails){
+			return ((UserDetails)principal).getUsername();
+		}
+		return principal.toString();
+		//return (String) model.get("name");
 	}
 	
 	/**

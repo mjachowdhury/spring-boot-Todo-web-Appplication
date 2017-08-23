@@ -1,17 +1,14 @@
-package com.alomsoftware.springboot.web.service;
+/*package com.alomsoftware.springboot.web.service;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-//I have to tell Spring that its a Bean class
-//Spring Bean
-@Component
+@Service
 public class LoginService {
 
-	public boolean validateUser(String userId, String password){
-		
-		//eg-( Moahmmed and Alom is the userId and password)
-		//if this userId and password is only match then it will be true otherwise it be false
-		return userId.equalsIgnoreCase("alomsoftware") 
+	public boolean validateUser(String userid, String password) {
+		// in28minutes, dummy
+		return userid.equalsIgnoreCase("alomsoftware")
 				&& password.equalsIgnoreCase("alom");
 	}
-}
+
+}*/

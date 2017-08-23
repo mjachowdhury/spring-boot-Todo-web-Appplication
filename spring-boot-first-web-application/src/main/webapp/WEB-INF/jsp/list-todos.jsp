@@ -23,13 +23,7 @@
 							<td><a type="button" class="btn btn-warning" 
 								href="/delete-todo?id=${todo.id}">Delete</a></td>						
 						</tr>
-				 	</c:forEach>
-					 
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>						
-					</tr>
+				 	</c:forEach>					 					 
 				</tbody>
 		</table>
 	 
